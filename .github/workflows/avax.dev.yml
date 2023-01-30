@@ -23,8 +23,6 @@ jobs:
       ## Reference your environment variables
       run: |
         echo "The API keys is: $BLOKARIA_WEBSITE" 
-        echo "The API keys is TEST_SECRET : ${{ secrets.TEST_SECRET }}" 
-        echo "The API keys is SSH_KEY_DEV: ${{ secrets.SSH_KEY_DEV }}" 
         echo "Receiver Addr: BLA" 
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
