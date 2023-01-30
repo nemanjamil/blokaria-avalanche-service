@@ -2,7 +2,7 @@ name: Node.js AVAX DEV CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 env: 
