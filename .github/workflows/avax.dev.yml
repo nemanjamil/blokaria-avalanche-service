@@ -23,7 +23,7 @@ jobs:
       ## Reference your environment variables
       run: |
         echo "The API keys is: $BLOKARIA_WEBSITE" 
-        echo "Receiver Addr: BLA" 
+        echo "Receiver Addr: TEST" 
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
@@ -34,7 +34,7 @@ jobs:
       with:
         host: '185.193.66.140'
         username: 'admin'
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_KEY_DEV }}
         port: 22
         source: '.env'
         target: "/opt/cardano/avalanche_transactions"
