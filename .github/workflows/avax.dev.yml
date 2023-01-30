@@ -44,7 +44,7 @@ jobs:
       with:
         host: '185.193.66.140'
         username: 'admin'
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_KEY_DEV }}
         port: 22
         source: "."
         target: "/opt/cardano/avalanche_transactions"
