@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 //const Joi = require('joi');
 
-router.post('/', async (req, res) => {
+router.post('', async (req, res) => {
 
     const { body } = req;
     console.log("Body START CHECK WALLET - HIT: ", body)
