@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "523c5c60-880b-4cdd-97c5-441f4c7212c3",
+		"name": "AvalancheTx",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/mint/2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:5000/mint/2"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/createWallet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/createWallet"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/balance/address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/balance/address"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/sendEther",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"recipient\": \"\",\r\n    \"amount\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/sendEther"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/updateMetadata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tokenId\": 1,\r\n    \"metadata\": \"https://metadata.url\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/updateMetadata"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/transferNFT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tokenId\": 1,\r\n    \"recipient\": \"0xAddress\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/transferNFT"
+			},
+			"response": []
+		}
+	]
+}
