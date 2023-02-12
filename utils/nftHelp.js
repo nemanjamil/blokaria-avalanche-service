@@ -1,7 +1,9 @@
 const Web3 = require('web3');
 
-//const provider = new Web3.providers.HttpProvider('https://api.avax.network/ext/bc/C/rpc'); // https://api.avax.network/ext/bc/C/rpc
-const provider = new Web3.providers.HttpProvider('http://185.193.66.140:9650/ext/bc/C/rpc');
+const provider = new Web3.providers.HttpProvider('https://api.avax-test.network/ext/bc/C/rpc');
+// https://api.avax.network/ext/bc/C/rpc        - prod
+// https://api.avax-test.network/ext/bc/C/rpc   - test 
+// const provider = new Web3.providers.HttpProvider('http://185.193.66.140:9650/ext/bc/C/rpc');  - my server test
 
 const web3 = new Web3(provider);
 
@@ -12,7 +14,14 @@ const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 async function mintNFT(tokenId) {
   const accounts = await web3.eth.getAccounts();
+
+  // no accounts in the lsit
+  console.log('accounts', accounts);
+
   const account = accounts[0];
+
+  console.log('account', account);
+
   const gas = await contract.methods
     .mint(tokenId)
     .estimateGas({ from: account });
@@ -29,8 +38,11 @@ async function sendEther(recipient, amount) {
   const gasPrice = await web3.eth.getGasPrice();
   // const balance = await web3.eth.getBalance(sender);
   const amountToSend = web3.utils.toWei(String(amount), 'ether');
+
+  console.log('sender', sender);
+
   const transaction = {
-    from: sender,
+    from: sender,  // no data here
     to: recipient,
     value: amountToSend,
     gasPrice,
@@ -81,9 +93,9 @@ async function getBalance(req, res) {
 }
 
 module.exports = {
-  mintNFT,
-  updateMetadata,
-  transferNFT,
-  sendEther,
-  getBalance
+  mintNFT,  // ?
+  updateMetadata, // ?
+  transferNFT, // ?
+  sendEther, // works
+  getBalance  // works
 };

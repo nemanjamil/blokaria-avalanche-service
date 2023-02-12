@@ -14,6 +14,9 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'no-underscore-dangle': 'off',
     'consistent-return': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'linebreak-style': 0,
+    'quote-props': 'off',
+    'no-trailing-spaces': true
   }
 };
