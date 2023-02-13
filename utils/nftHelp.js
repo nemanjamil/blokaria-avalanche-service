@@ -19,35 +19,42 @@ async function mintNFT(tokenId) {
   console.log('accounts', accounts);
 
   const account = accounts[0];
+  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
 
   console.log('account', account);
 
   const gas = await contract.methods
     .mint(tokenId)
-    .estimateGas({ from: account });
+    .estimateGas({ from: sender.address }); // sorry, lost connect
   const receipt = await contract.methods
     .mint(tokenId)
-    .send({ from: account, gas });
+    .send({ from: sender.address, gas });
   console.log(receipt);
 }
 
 async function sendEther(recipient, amount) {
   console.log(recipient, amount);
   const accounts = await web3.eth.getAccounts();
-  const sender = accounts[0];
+  //const sender = accounts[0];
+
+  console.log(process.env.PRIVATEKEY)
+  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY); // I meant this. okay? 
   const gasPrice = await web3.eth.getGasPrice();
   // const balance = await web3.eth.getBalance(sender);
   const amountToSend = web3.utils.toWei(String(amount), 'ether');
 
-  console.log('sender', sender);
+  console.log('sendEther sender', sender);
 
   const transaction = {
-    from: sender,  // no data here
+    from: sender.address,  // no data here
     to: recipient,
     value: amountToSend,
     gasPrice,
     gas: 21000
   };
+
+  console.log('sendEther transaction', transaction);
+
   const signedTransaction = await web3.eth.accounts.signTransaction(
     transaction,
     process.env.PRIVATEKEY
@@ -59,26 +66,24 @@ async function sendEther(recipient, amount) {
 }
 
 async function updateMetadata(tokenId, metadata) {
-  const accounts = await web3.eth.getAccounts();
-  const account = accounts[0];
+  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
   const gas = await contract.methods
     .setTokenURI(tokenId, metadata)
-    .estimateGas({ from: account });
+    .estimateGas({ from: sender.address });
   const receipt = await contract.methods
     .setTokenURI(tokenId, metadata)
-    .send({ from: account, gas });
+    .send({ from: sender.address, gas });
   console.log(receipt);
 }
 
 async function transferNFT(tokenId, recipient) {
-  const accounts = await web3.eth.getAccounts();
-  const sender = accounts[0];
+  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
   const gas = await contract.methods
-    .transferFrom(sender, recipient, tokenId)
-    .estimateGas({ from: sender });
+    .transferFrom(sender.address, recipient, tokenId)
+    .estimateGas({ from: sender.address });
   const receipt = await contract.methods
-    .transferFrom(sender, recipient, tokenId)
-    .send({ from: sender, gas });
+    .transferFrom(sender.address, recipient, tokenId)
+    .send({ from: sender.address, gas });
   console.log(receipt);
 }
 
