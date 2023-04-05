@@ -1,13 +1,11 @@
 const Web3 = require('web3');
-const { Contract } = require('web3-eth-contract')
 
-const web3 = new Web3('https://api.avax-test.network/ext/bc/C/rpc');
-// const provider = new Web3.providers.HttpProvider('https://api.avax-test.network/ext/bc/C/rpc');
+const provider = new Web3.providers.HttpProvider('https://api.avax-test.network/ext/bc/C/rpc');
 // https://api.avax.network/ext/bc/C/rpc        - prod
 // https://api.avax-test.network/ext/bc/C/rpc   - test 
 // const provider = new Web3.providers.HttpProvider('http://185.193.66.140:9650/ext/bc/C/rpc');  - my server test
 
-// const web3 = new Web3(provider);
+const web3 = new Web3(provider);
 
 const contractABI = require('../constant/abi.json');
 
@@ -15,13 +13,21 @@ const contractAddress = process.env.CONTRACTADDRESS;
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 async function mintNFT(tokenId) {
+  const accounts = await web3.eth.getAccounts();
+
+  // no accounts in the lsit
+  console.log('accounts', accounts);
+
+  const account = accounts[0];
   const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
 
+  console.log('account', account);
+
   const gas = await contract.methods
-    .setMarketPlaceAddress('0xa9C19FCE5CfB91F9B73756781F8Aa0285c001234')
+    .mint(tokenId)
     .estimateGas({ from: sender.address }); // sorry, lost connect
   const receipt = await contract.methods
-    .setMarketPlaceAddress('0xa9C19FCE5CfB91F9B73756781F8Aa0285c001234')
+    .mint(tokenId)
     .send({ from: sender.address, gas });
   console.log(receipt);
 }
@@ -34,8 +40,7 @@ async function sendEther(recipient, amount) {
   console.log(process.env.PRIVATEKEY)
   const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY); // I meant this. okay? 
   const gasPrice = await web3.eth.getGasPrice();
-  // const balance = await web3.eth.getBalance(sender);  // let me check more. seems it's not thing to finish here shortly.
-  // ok. sorry no prb :) I undersund .. Someware is minor bug...., yeah, so work flow is like this. Let me check more and fix. Good night. :) :) Thx :) 
+  // const balance = await web3.eth.getBalance(sender);
   const amountToSend = web3.utils.toWei(String(amount), 'ether');
 
   console.log('sendEther sender', sender);
@@ -99,6 +104,3 @@ module.exports = {
   sendEther, // works
   getBalance  // works
 };
-
-
-// something went wrong. seems web3 version issue. 
