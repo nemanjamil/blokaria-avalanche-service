@@ -1,16 +1,16 @@
 const Web3 = require('web3');
 
-const provider = new Web3.providers.HttpProvider('https://api.avax-test.network/ext/bc/C/rpc');
+const provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545');
 // https://api.avax.network/ext/bc/C/rpc        - prod
 // https://api.avax-test.network/ext/bc/C/rpc   - test 
 // const provider = new Web3.providers.HttpProvider('http://185.193.66.140:9650/ext/bc/C/rpc');  - my server test
 
 const web3 = new Web3(provider);
 
-const contractABI = require('../constant/abi.json');
+const contractABI = require('../constant/deposit.json');
 
 const contractAddress = process.env.CONTRACTADDRESS;
-const contract = new web3.eth.Contract(contractABI, contractAddress);
+const contract = new web3.eth.Contract(contractABI.abi, contractAddress);
 
 async function mintNFT(tokenId) {
   const accounts = await web3.eth.getAccounts();
@@ -33,17 +33,22 @@ async function mintNFT(tokenId) {
 }
 
 async function sendEther(recipient, amount) {
-  console.log(recipient, amount);
-  const accounts = await web3.eth.getAccounts();
+
+  console.log("1. sendEther recipient", recipient);
+  console.log("2. sendEther amount", amount);
+  //const accounts = await web3.eth.getAccounts();
   //const sender = accounts[0];
 
-  console.log(process.env.PRIVATEKEY)
-  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY); // I meant this. okay? 
+  console.log("3. sendEther process.env.PRIVATEKEY", process.env.PRIVATEKEY)
+  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
   const gasPrice = await web3.eth.getGasPrice();
   // const balance = await web3.eth.getBalance(sender);
+
+  console.log('4. sendEther gasPrice', gasPrice);
+
   const amountToSend = web3.utils.toWei(String(amount), 'ether');
 
-  console.log('sendEther sender', sender);
+  console.log('5. sendEther amountToSend', amountToSend);
 
   const transaction = {
     from: sender.address,  // no data here
@@ -53,16 +58,23 @@ async function sendEther(recipient, amount) {
     gas: 21000
   };
 
-  console.log('sendEther transaction', transaction);
+  console.log('6. sendEther transaction', transaction);
 
   const signedTransaction = await web3.eth.accounts.signTransaction(
     transaction,
     process.env.PRIVATEKEY
   );
+
+  console.log('6. sendEther signedTransaction', signedTransaction);
+
   const receipt = await web3.eth.sendSignedTransaction(
     signedTransaction.rawTransaction
   );
-  console.log(receipt);
+
+  console.log('6. sendEther receipt', receipt);
+
+  return { "ok ": "Fine" }
+
 }
 
 async function updateMetadata(tokenId, metadata) {
