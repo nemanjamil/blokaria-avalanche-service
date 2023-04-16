@@ -13,6 +13,8 @@ const contractAddress = process.env.CONTRACTADDRESS;
 const contract = new web3.eth.Contract(contractABI.abi, contractAddress);
 
 async function mintNFT(tokenId) {
+
+  // tokenId = ipfs hash id 
   const accounts = await web3.eth.getAccounts();
 
   // no accounts in the lsit
@@ -80,9 +82,6 @@ async function sendEther(recipient, amount) {
     console.error('0. sendEther error', error);
     throw new Error(error.message);
   }
-
-
-
 }
 
 async function updateMetadata(tokenId, metadata) {
