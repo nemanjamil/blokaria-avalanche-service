@@ -1,26 +1,25 @@
-# Avalanche + Ganache Transaction
+# Avalanche Transactions
 
-What is in the code 
 - Create transaction and Mint NFT 
 - Truffle Contract 
 - Ganache Network 
+- Express.js
+- Solidity 
 
 
-Synchronization **Google Drive**
+This **project** is part of [blokaria.com](http://blokaria.com/) 
 
-- The workspace synchronization will sync all your files, folders and settings automatically. This will allow you to fetch your workspace on any other device.
-	> To start syncing your workspace, just sign in with Google in the menu.
+- [Caradano transactions service](https://github.com/nemanjamil/blokaria-cardano-transactions) 
+- [Blokaria microservices](https://github.com/nemanjamil/blokaria-microservices)
 
-```javascript I'm A tab
-console.log('Code Tab A');
-```
-```javascript I'm tab B
-console.log('Code Tab B');
-```
 
 ## Setting up project
 
 - git clone
-- yanr 
+- yarn 
 - truffle migrate ( install Ganache is prerequirement )
 
+
+```
+How to create an NFT on the Avalanche blockchain using Express nad Nodejs
+```
