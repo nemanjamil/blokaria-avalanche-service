@@ -38,12 +38,14 @@ const handletransferNFT = (req, res) => {
   }
 };
 
-const handleSendEther = (req, res) => {
+const handleSendEther = async (req, res) => {
   try {
     const { recipient, amount } = req.body;
-    sendEther(recipient, amount).then(() => res.status(200).json({ result: 'Transfer Ether Successfully' }));
+    let { transaction, receipt } = await sendEther(recipient, amount);
+    res.status(200).json({ result: 'Transfer Ether Successfully', transaction, receipt })
   } catch (error) {
-    res.status(500).json({ result: 'Server error', msg: error });
+    console.error('HandleError', error);
+    res.status(400).json({ result: 'Transaction error', msg: error.message });
   }
 };
 

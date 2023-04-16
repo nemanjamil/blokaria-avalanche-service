@@ -7,7 +7,7 @@ const provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545');
 
 const web3 = new Web3(provider);
 
-const contractABI = require('../constant/deposit.json');
+const contractABI = require('../constant/Blokariacontract.json');
 
 const contractAddress = process.env.CONTRACTADDRESS;
 const contract = new web3.eth.Contract(contractABI.abi, contractAddress);
@@ -34,46 +34,54 @@ async function mintNFT(tokenId) {
 
 async function sendEther(recipient, amount) {
 
-  console.log("1. sendEther recipient", recipient);
-  console.log("2. sendEther amount", amount);
-  //const accounts = await web3.eth.getAccounts();
-  //const sender = accounts[0];
+  try {
+    console.log("1. sendEther recipient", recipient);
+    console.log("2. sendEther amount", amount);
+    //const accounts = await web3.eth.getAccounts();
+    //const sender = accounts[0];
 
-  console.log("3. sendEther process.env.PRIVATEKEY", process.env.PRIVATEKEY)
-  const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
-  const gasPrice = await web3.eth.getGasPrice();
-  // const balance = await web3.eth.getBalance(sender);
+    console.log("3. sendEther process.env.PRIVATEKEY", process.env.PRIVATEKEY)
+    const sender = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATEKEY);
+    const gasPrice = await web3.eth.getGasPrice();
+    // const balance = await web3.eth.getBalance(sender);
 
-  console.log('4. sendEther gasPrice', gasPrice);
+    console.log('4. sendEther gasPrice', gasPrice);
 
-  const amountToSend = web3.utils.toWei(String(amount), 'ether');
+    const amountToSend = web3.utils.toWei(String(amount), 'ether');
 
-  console.log('5. sendEther amountToSend', amountToSend);
+    console.log('5. sendEther amountToSend', amountToSend);
 
-  const transaction = {
-    from: sender.address,  // no data here
-    to: recipient,
-    value: amountToSend,
-    gasPrice,
-    gas: 21000
-  };
+    const transaction = {
+      from: sender.address,  // no data here
+      to: recipient,
+      value: amountToSend,
+      gasPrice,
+      gas: 521000
+    };
 
-  console.log('6. sendEther transaction', transaction);
+    console.log('6. sendEther transaction', transaction);
 
-  const signedTransaction = await web3.eth.accounts.signTransaction(
-    transaction,
-    process.env.PRIVATEKEY
-  );
+    const signedTransaction = await web3.eth.accounts.signTransaction(
+      transaction,
+      process.env.PRIVATEKEY
+    );
 
-  console.log('6. sendEther signedTransaction', signedTransaction);
+    console.log('7. sendEther signedTransaction', signedTransaction);
 
-  const receipt = await web3.eth.sendSignedTransaction(
-    signedTransaction.rawTransaction
-  );
+    const receipt = await web3.eth.sendSignedTransaction(
+      signedTransaction.rawTransaction
+    );
 
-  console.log('6. sendEther receipt', receipt);
+    console.log('8. sendEther receipt', receipt);
 
-  return { "ok ": "Fine" }
+    return { transaction, receipt }
+
+  } catch (error) {
+    console.error('0. sendEther error', error);
+    throw new Error(error.message);
+  }
+
+
 
 }
 
