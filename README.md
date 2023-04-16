@@ -1,5 +1,7 @@
 # Avalanche Transactions
 
+How to create an NFT on the Avalanche blockchain using Express nad Nodejs
+
 - Create transaction and Mint NFT 
 - Truffle Contract 
 - Ganache Network 
@@ -21,5 +23,6 @@ This **project** is part of [blokaria.com](http://blokaria.com/)
 
 
 ```
-How to create an NFT on the Avalanche blockchain using Express nad Nodejs
+:) 
 ```
+🏖️
