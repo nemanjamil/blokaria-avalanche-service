@@ -27,7 +27,7 @@ async function mintNFT(tokenId) {
 
   const gas = await contract.methods
     .mint(tokenId)
-    .estimateGas({ from: sender.address }); // sorry, lost connect
+    .estimateGas({ from: sender.address });
   const receipt = await contract.methods
     .mint(tokenId)
     .send({ from: sender.address, gas });
